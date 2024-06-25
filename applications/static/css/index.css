@@ -1,231 +1,272 @@
-:root{
-    --pink: #d30da4;
-    --purple: #4204b0;
-    --darkGrey: #2e2e2e;
-    --lightGrey: #5e5e5e;
-    --textFont: Arial, Helvetica, sans-serif;
-}
-
-html,
+/* styles.css */
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     display: flex;
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
+    /* height: 100vh; */
+    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
-    background-color: white;
-    flex-direction: column;
-    overflow: hidden;
 }
 
-header {
+.main-content {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    height: 10%;
-    background-color: #dFdFdF;
-    border: 1px solid black;
+    background-color: #f4f4f4;
+    margin: 0;
 }
 
-#logo {
-    margin-left: -11px;
-    margin-top: -12px;
-    margin-right: auto;
-    margin-bottom: auto;
-}
-
-#Titel{
-    color: transparent;
-    background-image: linear-gradient(to right, var(--darkGrey), var(--pink), var(--purple), var(--lightGrey));
-    -webkit-background-clip: text;
-    background-clip: text;
-    margin: auto;
-    font-size: 45px;
-}
-
-#Homepage_btn{
-    border-radius: 5px;
-    background: linear-gradient(to right, var(--pink), var(--purple));
-    color: white;
-    padding: 10px;
-    font-size: 12px;
-    margin-left: auto;
-    margin-top: auto;
-    margin-right: 5px;
-    margin-bottom: auto;
-}
-
-.main {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 90%;
-    background-color: white;
-}
-
-/* Filter Components */
-.leftComponent {
+.left-content {
     display: flex;
     flex-direction: column;
-    width: 15%;
+    background-color: #FFF;
+    margin: 0;
+    width: 23%;
+}
+.right-content {
+    width: 77%;
     height: 100%;
-    border-right: 1px solid black;
+    
 }
 
-.leftComponent h2 {
-    margin-top: 20%;
-    margin-left: 5px;
-    color: #333;
-    font-size: 22px;
+button {
+    padding: 10px 20px;
+    /* font-size: 16px; */
+    cursor: pointer;
+    border: 1px solid black;
+    /* border-radius: 5px; */
+    background-color: #007bff;
+    color: white;
 }
 
-.leftComponent h3 {
-    margin-left: 5px;
-    font-size: 16px;
-    color: #333;
+#calendar {
+    display: block;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px;
+    margin: 3px;
 }
 
-.leftComponent a {
-    margin-left: 5px;
+#calendar-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
-    text-decoration: none;
-    color: #bbb;
+    background-color: #007bff;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#calendar-header button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#calendar-body {
+    padding: 10px;
+}
+
+.day-names {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
     margin-bottom: 10px;
 }
 
-.leftComponent a:hover {
-    background-color: #ddd;
+#calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    /* gap: 5px; */
 }
 
-.leftComponent a.active {
-    background-color: #ddd;
-    color: #000;
+#calendar-days span {
+    display: block;
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: center;
+    /* border-radius: 3px; */
+    cursor: pointer;
+}
+
+#calendar-days span:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#calendar-days .selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#calendar-days .prev-month,
+#calendar-days .next-month {
+    color: #bbb;
+}
+
+.prev-next {
+    height: 10%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    padding: 10px 20px;
+    color: white;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search-input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+#search-button {
+    padding: 9px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.logout-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+#termin-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: yellow;
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 3px;
+}
+
+.checkbox-container {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.checkbox-container.active {
+    display: block;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5); /* Größe der Checkbox */
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(13, 1fr); /* Erste Reihe für Wochentage, dann 13 Reihen für die Stunden */
+    grid-template-rows: auto 1fr;
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    margin-top: 10px;
+}
+
+.weekdays {
+    display: contents;
+}
+
+.weekdays > div {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
     font-weight: bold;
 }
 
-/* Navigation Bar + Main Content */
-.rightComponent {
-    display: flex;
-    flex-direction: column;
-    width: 85%;
+.timeslots {
+    display: contents;
     height: 100%;
 }
 
-/* Bar to switch betweet the main pages */
-.navigationBar {
-    display: flex;
-    margin-top: 5px;
-    gap: 20px;
-}
-.navigationBar a {
-    color: #bbb;
-    text-decoration: none;
-    font-size: 18px;
-    margin: auto;
-}
-.navigationBar a.active {
-    color: #000;
-}
-
-/* The largest part of the page */
-.mainContent {
-    width: 100%;
-    height: 90%;
-    display: none;
-}
-.mainContent.active {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Main Content Events */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: auto;
-    margin-top: 40px;
-}
-
-.form-group label {
-    display: block;
-    margin: auto;
-    width: 40%;
-    align-items: center;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-group input, .form-group textarea {
-    width: 40%;
+.time {
     padding: 10px;
-    margin: auto;
-    box-sizing: border-box;
+    border-top: 1px solid #ccc;
+    text-align: right;
+    background-color: #e9e9e9;
+    grid-column: 1 / 2;
 }
 
-.form-group textarea {
-    height: 100px;
+.appointments {
+    display: contents;
 }
 
-#media {
-    margin-left: 7%;
+.appointment {
+    background-color: #ffc107;
+    padding: 10px;
+    margin: 2px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
 }
 
-.mediaHeader {
+.nav-btn-group {
     display: flex;
     flex-direction: row;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 7px;
 }
 
-.media-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    overflow-y: scroll; /* Vertikales Scrollen aktivieren */
-    overflow-x: hidden; /* Horizontales Scrollen deaktivieren */
-}
-
-.media-item {
-    width: 150px;
-    text-align: center;
-    color: #333;
-}
-
-.media-item.active {
-    background-color: #ddd;
-}
-
-.media-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.media-item h3 {
-    font-size: 16px;
-    margin: 10px 0 5px 0;
-}
-
-.media-item p {
-    font-size: 14px;
-    color: #666;
-    margin: 0;
-}
-
-#speichern {
-    border-radius: 5px;
-    background: linear-gradient(to right, var(--pink), var(--purple));
-    color: white;
-    padding: 10px;
-    font-size: 12px;
+.nav-btn {
     margin: auto;
+    border-radius: 5px;
 }
 
-/* Class for active text elements  */
-.active {
-    font-weight: bold;
+#days-btn {
+    margin-right: 5px;
+}
+
+#weeks-btn {
+    margin-left: 5px;
 }

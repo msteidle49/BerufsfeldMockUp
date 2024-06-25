@@ -1,70 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender</title>
     <link rel="stylesheet" href="../static/css/index.css">
-    <script src="../static/script/index.js"></script>
-    <title></title>
 </head>
 <body>
-
-    <header>
-        <img src="../static/images/pictureNotFound.png" alt="AstroSphere Logo" height="100" id="logo">
-        <h1 id="Titel">AstroSphere</h1>
-        <button id= "Homepage_btn" onclick="goBackHome()">Zurück zur Homepage</button>
+    <!-- Header -->
+    <header class="header">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Suchen...">
+            <button id="search-button">🔍</button>
+        </div>
+        <button class="logout-button" id="logout-button">
+            <img src="../static/images/logout_icon.png" alt="Logout Icon" class="logout-icon">
+            Logout
+        </button>
     </header>
 
-    <div class= "main">
-        <div class= "leftComponent">
-            <h2>Neue Veranstaltung anlegen</h2>
-            <h3>Deine Vortrag</h3>
-            <a class="active" href="#" onclick="filter(event, 'topic')">Thema</a>
-            <a href="#" onclick="filter(event, 'media')">Medien</a>
-            <h3>Dein Termin</h3>
-            <a href="#" onclick="filter(event, 'date')">Datum & Uhrzeit</a>
-            <a href="#" onclick="filter(event, 'room')">Raum</a>
+    <div class="main-content">
+        <div class="left-content">
+            <!-- Button zum Öffnen des Modals -->
+            <button id="termin-btn">Termin suchen</button>
+
+            <!-- Kalenderstruktur -->
+            <div id="calendar">
+                <!-- Kopfzeile des Kalenders mit Navigation -->
+                <div id="calendar-header">
+                    <button id="prev-month">◀</button>
+                    <span id="month-year"></span>
+                    <button id="next-month">▶</button>
+                </div>
+                <!-- Körper des Kalenders mit Tagesnamen und Tagen -->
+                <div id="calendar-body">
+                    <div class="day-names">
+                        <span>So</span><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span>
+                    </div>
+                    <div id="calendar-days"></div>
+                </div>
+            </div>
+
+            <!-- Button zum Öffnen des Modals -->
+            <button class="modal-btn" id="open-modal-filter">filter</button>
+            <div class="checkbox-container active" id="filter">
+                <label for="option1">
+                    <input type="checkbox" id="option1" name="options" value="option1">
+                    Option 1
+                </label>
+                <label for="option2">
+                    <input type="checkbox" id="option2" name="options" value="option2">
+                    Option 2
+                </label>
+                <label for="option3">
+                    <input type="checkbox" id="option3" name="options" value="option3">
+                    Option 3
+                </label>
+            </div>
+
+            <button class="modal-btn" id="open-modal-status">Status</button>
+            <div class="checkbox-container" id="status">
+                <label for="option1">
+                    <input type="checkbox" id="option1" name="options" value="option1">
+                    Option 1
+                </label>
+                <label for="option2">
+                    <input type="checkbox" id="option2" name="options" value="option2">
+                    Option 2
+                </label>
+                <label for="option3">
+                    <input type="checkbox" id="option3" name="options" value="option3">
+                    Option 3
+                </label>
+            </div>
         </div>
 
-        <div class= "rightComponent">
-            <nav class="navigationBar">
-                <a href="#" class="active" onclick="goToEvents()">Veranstaltungen</a>
-                <a href="#" onclick="goToRooms()">Räume</a>
-                <a href="#" onclick="goToPlanets()">Planeten</a>
-                <a href="#" onclick="goToTelescopes()">Teleskope</a>
-            </nav>
-
-            <div id="topic" class="mainContent active">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name">
-                </div>
-                <div class="form-group">
-                    <label for="description">Beschreibung</label>
-                    <textarea id="description" name="description" placeholder="In dieser Veranstaltung geht es um..."></textarea>
-                </div>
+        <div class="right-content">
+            <div class="nav-btn-group">
+                <button class="nav-btn" id="days-btn">Tage</button>
+                <button class="nav-btn" id="weeks-btn">Wochen</button>
             </div>
-            <div id="media" class="mainContent">
-                <div class="mediaHeader">
-                    <div>
-                        <h2>Medien</h2>
-                        <p>Wähle die Medien aus, die du für deinen Vortrag benötigst</p>
-                    </div>
-                    <button id="speichern">Speichern</button>
+            <div class="calendar">
+                <div class="weekdays">
+                    <div>            </div>
+                    <div>Mo., 17. Jan</div>
+                    <div>Di., 18. Jan</div>
+                    <div>Mi., 19. Jan</div>
+                    <div>Do., 20. Jan</div>
+                    <div>Fr., 21. Jan</div>
                 </div>
-                <div id="mediaGrid" class="media-grid">
-                    
+                <div class="timeslots">
+                    <!-- Timeslot labels -->
+                    <div class="time">7:00</div>
+                    <div class="time">7:30</div>
+                    <div class="time">8:00</div>
+                    <div class="time">8:30</div>
+                    <div class="time">9:00</div>
+                    <div class="time">9:30</div>
+                    <div class="time">10:00</div>
+                    <div class="time">10:30</div>
+                    <div class="time">11:00</div>
+                    <div class="time">11:30</div>
+                    <div class="time">12:00</div>
+                    <div class="time">12:30</div>
+                    <div class="time">13:00</div>
+                    <div class="time">13:30</div>
+                    <div class="time">14:00</div>
+                    <div class="time">14:30</div>
+                    <div class="time">15:00</div>
+                    <div class="time">15:30</div>
+                    <div class="time">16:00</div>
+                    <div class="time">16:30</div>
+                    <div class="time">17:00</div>
+                    <div class="time">17:30</div>
+                    <div class="time">18:00</div>
                 </div>
-            </div>
-            <div id="date" class="mainContent">
-                <h2>Datum & Uhrzeit</h2>
-                <p>Informationen zum Datum und Uhrzeit...</p>
-            </div>
-            <div id="room" class="mainContent">
-                <h2>Veranstaltungsraum</h2>
-                <p>Informationen zum Veranstaltungsraum...</p>
+                <div class="appointments">
+                    <!-- Sample appointments -->
+                    <div class="appointment" style="grid-row: 2 / span 2; grid-column: 2;">A - B</div>
+                    <div class="appointment" style="grid-row: 2 / span 3; grid-column: 3;">C - D</div>
+                    <div class="appointment" style="grid-row: 4 / span 2; grid-column: 4;">E - F</div>
+                    <!-- Add more appointments as needed -->
+                </div>
             </div>
         </div>
     </div>
+    <script src="../static/script/index.js"></script>
 </body>
 </html>
