@@ -6,12 +6,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const filter = document.getElementById('filter');
     const status = document.getElementById('status');
     const calendarHeader = document.getElementById('month-year');
+    const calendarHeader2 = document.getElementById('month-year2');
     const calendarDays = document.getElementById('calendar-days');
     const prevMonthBtn = document.getElementById('prev-month');
     const nextMonthBtn = document.getElementById('next-month');
 
+    const btn_day = document.getElementById('days-btn');
+    const btn_week = document.getElementById('weeks-btn');
+    const calendar_week = document.getElementById('calendar-week');
+    const calendar_day = document.getElementById('calendar-day');
+
     const openModalButtonStatus = document.getElementById('open-modal-status');
     const openModalButtonfilter = document.getElementById('open-modal-filter');
+
+
+    // Event-Listener für den Button zum Ändern des Kalendertyp
+    btn_day.addEventListener('click', () => {
+        calendar_week.classList.remove('active')
+        calendar_day.classList.add('active')
+        btn_day.classList.add('active')
+        btn_week.classList.remove('active')
+    });
+    
+    btn_week.addEventListener('click', () => {
+        calendar_week.classList.add('active')
+        calendar_day.classList.remove('active')
+        btn_day.classList.remove('active')
+        btn_week.classList.add('active')
+    });
 
     // Event-Listener für den Button zum Öffnen des Modals
     openModalButtonStatus.addEventListener('click', () => {
@@ -27,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Variablen für das aktuelle Datum und das ausgewählte Datum
     let currentDate = new Date();
     let selectedDate = null;
-
+    
     // Funktion zum Rendern des Kalenders
     const renderCalendar = (date) => {
         const year = date.getFullYear();
@@ -43,15 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Erster Tag des Monats und Anzahl der Tage im Monat
         const firstDayOfMonth = new Date(year, month, 1).getDay();
+        console.log(firstDayOfMonth);
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
         // Anzahl der Tage des vorherigen Monats
         const prevMonthDays = new Date(year, month, 0).getDate();
-        // Anzahl der Tage des nächsten Monats, die angezeigt werden sollen
-        const nextMonthDaysStart = 42 - (firstDayOfMonth + daysInMonth);
 
         // Tage des vorherigen Monats hinzufügen
-        for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+        for (let i = (firstDayOfMonth-1 < 0 ? 6 : firstDayOfMonth-1); i > 0; i--) {
             const daySpan = document.createElement('span');
             daySpan.textContent = prevMonthDays - i;
             daySpan.classList.add('prev-month');
@@ -65,9 +86,19 @@ document.addEventListener('DOMContentLoaded', () => {
             daySpan.textContent = i;
 
             // Überprüfen, ob das aktuelle Datum markiert werden soll
-            if (year === localDate.getFullYear() && month === localDate.getMonth() && i === localDate.getDate()) {
+            if (year === localDate.getFullYear() && month === localDate.getMonth()) {
+                if (i === localDate.getDate()) {
+                    daySpan.classList.add('selected');
+                    selectedDate = daySpan;
+                    currentDate.setDate(selectedDate.textContent)
+                    updateCalendar(currentDate);
+                }
+            }
+            else if (i === 1) {
                 daySpan.classList.add('selected');
                 selectedDate = daySpan;
+                currentDate.setDate(selectedDate.textContent)
+                updateCalendar(currentDate);
             }
 
             daySpan.addEventListener('click', () => {
@@ -76,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 selectedDate = daySpan;
                 selectedDate.classList.add('selected');
+                currentDate.setDate(selectedDate.textContent)
+                updateCalendar(currentDate);
             });
             calendarDays.appendChild(daySpan);
             days++;
@@ -102,6 +135,44 @@ document.addEventListener('DOMContentLoaded', () => {
         currentDate.setMonth(currentDate.getMonth() + 1);
         renderCalendar(currentDate);
     });
+
+    document.getElementById('logout-button').addEventListener('click', () => {
+        window.location.href = '/';
+    });
+
+    // Funktion zur Aktualisierung des Kalenders basierend auf dem ausgewählten Datum
+    function updateCalendar(date) {
+        const startOfWeek = getStartOfWeek(date);
+        const weekdayElements = document.querySelectorAll('.weekdays > div:not(.empty)');
+        
+        weekdayElements.forEach((el, index) => {
+            if (index === 5){
+                el.textContent = formatDate(date);
+            } else {
+                const day = new Date(startOfWeek);
+                day.setDate(startOfWeek.getDate() + index);
+                el.textContent = formatDate(day);
+            }
+        });
+        
+
+        // Hier können Sie weitere Logik hinzufügen, um Termine dynamisch basierend auf dem neuen Datum zu laden
+    }
+
+    // Hilfsfunktion zur Berechnung des Anfangs der Woche für ein gegebenes Datum
+    function getStartOfWeek(date) {
+        const dayOfWeek = date.getDay();
+        const startOfWeek = new Date(date);
+        const diff = date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust if day is Sunday
+        startOfWeek.setDate(diff);
+        return startOfWeek;
+    }
+
+    // Hilfsfunktion zur Formatierung eines Datums als "Tag, dd. MMM"
+    function formatDate(date) {
+        const options = { weekday: 'short', day: '2-digit', month: 'short' };
+        return date.toLocaleDateString('de-DE', options);
+    }
 
     // Initiales Rendern des Kalenders
     renderCalendar(currentDate);

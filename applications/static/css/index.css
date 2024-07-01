@@ -204,18 +204,23 @@ input[type="checkbox"] {
 }
 
 .calendar {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(13, 1fr); /* Erste Reihe für Wochentage, dann 13 Reihen für die Stunden */
-    grid-template-rows: auto 1fr;
+    display: none;
     width: 100%;
     height: 100%;
     max-width: 1200px;
     margin-top: 10px;
 }
 
+.calendar.active {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(13, 1fr); /* Erste Reihe für Wochentage, dann 13 Reihen für die Stunden */
+    grid-template-rows: auto 1fr;
+}
+
 .weekdays {
     display: contents;
+    width: auto;
 }
 
 .weekdays > div {
@@ -224,6 +229,7 @@ input[type="checkbox"] {
     color: white;
     text-align: center;
     font-weight: bold;
+    width: auto;
 }
 
 .timeslots {
@@ -261,6 +267,16 @@ input[type="checkbox"] {
 .nav-btn {
     margin: auto;
     border-radius: 5px;
+}
+
+.nav-btn:hover {
+    background-color: #00254d;
+    color: white;
+}
+
+.nav-btn.active {
+    background-color: #00254d;
+    color: white;
 }
 
 #days-btn {

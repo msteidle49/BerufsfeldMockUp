@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blaue Seite mit weißem Fenster und Login</title>
+    <style>
+        body {
+            background-color: blue;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .white-box {
+            background-color: white;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: darkblue;
+        }
+        .message {
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="white-box">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" class="input-field" placeholder="Benutzername" required>
+            <input type="password" id="password" class="input-field" placeholder="Passwort" required>
+            <button type="submit" class="button">Anmelden</button>
+            <div id="message" class="message"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var message = document.getElementById('message');
+
+            if (username === 'admin' && password === 'admin') {
+                window.location.href = '/main';
+            } else {
+                message.style.color = 'red';
+                message.textContent = 'Falscher Benutzername oder Passwort.';
+            }
+        });
+    </script>
+</body>
+</html>
