@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalender</title>
+    <link rel="icon" href="../static/images/BI_Logo2.jfif" type="image/x-icon">
     <link rel="stylesheet" href="../static/css/index.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Suchen...">
-            <button id="search-button">🔍</button>
+        <div class="search-complex">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Suchen...">
+                <button id="search-button">🔍</button>
+            </div>
+            <div class="search-results" id="clients">
+                
+            </div>
         </div>
         <button class="logout-button" id="logout-button">
             <img src="../static/images/logout_icon.png" alt="Logout Icon" class="logout-icon">

@@ -19,6 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const openModalButtonStatus = document.getElementById('open-modal-status');
     const openModalButtonfilter = document.getElementById('open-modal-filter');
 
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('clients');
+
+    const data = [
+        // Beispiel-Daten. Ersetzen Sie diese durch Ihre echten Daten.
+        'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa',
+        'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon',
+        'Phi', 'Chi', 'Psi', 'Omega'
+    ];
 
     // Event-Listener für den Button zum Ändern des Kalendertyp
     btn_day.addEventListener('click', () => {
@@ -45,6 +54,28 @@ document.addEventListener('DOMContentLoaded', () => {
         status.classList.toggle('active')
         filter.classList.toggle('active')
     });
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        const filteredResults = data.filter(item => item.toLowerCase().includes(query)).sort();
+
+        displayResults(filteredResults.slice(0, 20), query);
+    });
+
+    function displayResults(results, query) {
+        searchResults.innerHTML = '';
+
+        if (results.length > 0 && query.length > 0) {
+            searchResults.classList.add('active');
+            results.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.textContent = result;
+                searchResults.appendChild(resultDiv);
+            });
+        } else {
+            searchResults.classList.remove('active');
+        }
+    }
 
     // Variablen für das aktuelle Datum und das ausgewählte Datum
     let currentDate = new Date();
