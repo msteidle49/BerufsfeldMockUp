@@ -37,15 +37,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event-Listener für den Button zum Ändern des Kalendertyp
     btn_day.addEventListener('click', () => {
-        calendar_week.classList.remove('active')
-        calendar_day.classList.add('active')
+        calendar_week.style.display = 'none';
+        calendar_day.style.display = 'grid';
         btn_day.classList.add('active')
         btn_week.classList.remove('active')
     });
     
     btn_week.addEventListener('click', () => {
-        calendar_week.classList.add('active')
-        calendar_day.classList.remove('active')
+        calendar_week.style.display = 'grid';
+        calendar_day.style.display = 'none';
         btn_day.classList.remove('active')
         btn_week.classList.add('active')
     });
@@ -184,18 +184,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Funktion zur Aktualisierung des Kalenders basierend auf dem ausgewählten Datum
     function updateCalendar(date) {
         const startOfWeek = getStartOfWeek(date);
-        const weekdayElements = document.querySelectorAll('.weekdays > div:not(.empty)');
+        let weekdayElements = document.querySelectorAll('.weekday');
         
         weekdayElements.forEach((el, index) => {
-            if (index === 5){
-                el.textContent = formatDate(date);
-            } else {
+            if(!el.classList.contains('empty') )
+            {
                 const day = new Date(startOfWeek);
-                day.setDate(startOfWeek.getDate() + index);
+                day.setDate(startOfWeek.getDate() + index-1);
                 el.textContent = formatDate(day);
             }
         });
+        weekdayElements = document.querySelectorAll('.weekday-day');
         
+        weekdayElements.forEach((el, index) => {
+            if(!el.classList.contains('empty') )
+            {
+                el.textContent = formatDate(date);
+            }
+        });
 
         // Hier können Sie weitere Logik hinzufügen, um Termine dynamisch basierend auf dem neuen Datum zu laden
     }
