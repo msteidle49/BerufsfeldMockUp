@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('clients');
 
+    const terminbtn = document.getElementById('termin-btn');
+
+    terminbtn.addEventListener('click', () => {
+        window.location.href = '/termin';
+    });
+
     const data = [
         // Beispiel-Daten. Ersetzen Sie diese durch Ihre echten Daten.
         'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa',
@@ -68,8 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (results.length > 0 && query.length > 0) {
             searchResults.classList.add('active');
             results.forEach(result => {
-                const resultDiv = document.createElement('div');
+                const resultDiv = document.createElement('span');
                 resultDiv.textContent = result;
+                resultDiv.addEventListener('click', () => {
+                    searchInput.value = result
+                    searchResults.classList.remove('active');
+                });
                 searchResults.appendChild(resultDiv);
             });
         } else {

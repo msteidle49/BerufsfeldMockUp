@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termin Suchen</title>
+    <link rel="stylesheet" href="../static/css/termin.css">
+</head>
+</head>
+<body>
+    <header class="header">
+        <h1>Termin Suchen</h1>
+    </header>
+    <div class="main-content">
+
+        <div class="container">
+            <div class="search-complex">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Suchen...">
+                    <button id="search-button">🔍</button>
+                </div>
+                <div class="search-results" id="clients">
+                    
+                </div>
+            </div>
+
+            <div class="filter-container">
+                <button class="modal-btn" id="hrund">Termin Grund</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div>
+                <label>Dauer: </label>
+                <input type="number" id="dauer" min="1" max="30"> </input>
+                <label> min</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <h3>Filter: </h3>
+        </div>
+
+        <div class="container">
+            <div class="filter-container">
+                <button class="modal-btn" id="hrund">Wochentage</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="filter-container">
+                <button class="modal-btn" id="hrund">Zeitraum</button>
+            </div>
+        </div>
+
+        <div class="container" id="control-btn">
+            <button class="modal-btn" id="hrund">Abbrechen</button>
+            <button class="modal-btn" id="suchen-btn">Suchen</button>
+        </div>
+
+    </div>
+
+    <script src="../static/script/termin.js"></script>
+</body>
+</html>
