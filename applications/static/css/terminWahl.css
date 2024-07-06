@@ -30,22 +30,22 @@ button {
     font-size: 16px;
 }
 
-#calendar-week {
+#calendar-day {
     display: grid;
     grid-template-columns: 100px repeat(5, 1fr) 100px;
-    grid-template-rows: repeat(144, 5px);
+    grid-template-rows: repeat(134, 35px); 
     gap: 1px;
     overflow-y: auto;
-    height: 625px; /* Feste Höhe für Scrollen */
+    height: 580px; /* Feste Höhe für Scrollen */
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
     position: relative;
 }
 
-.weekday {
+.weekday-day {
     grid-column: span 1;
-    grid-row: span 6;
+    grid-row: span 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,9 +54,9 @@ button {
     border: 1px solid #ccc;
 }
 
-.time-label {
+.time-label-day {
     grid-column: 1;
-    grid-row: span 6;
+    grid-row: span 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,7 +65,15 @@ button {
 }
 
 .appointment {
-    background-color: #ffa500;
+    background-color: #989898;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.appointment-free {
+    background-color: #00ff1e;
     color: white;
     padding: 5px;
     border-radius: 4px;
