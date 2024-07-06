@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const suchenBtn = document.getElementById('suchen-btn');
+    const searchDateBtn = document.getElementById('search-date');
+    const cancelBtn = document.getElementById('cancel');
 
-    suchenBtn.addEventListener('click', () => {
+    searchDateBtn.addEventListener('click', () => {
         window.location.href = '/termin/wahl';
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        window.location.href = '/main';
     });
 });

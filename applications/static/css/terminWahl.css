@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4;
+    margin: 0;
+    overflow: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 0.5px 20px;
+    font-size: 12px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#calendar-week {
+    display: grid;
+    grid-template-columns: 100px repeat(5, 1fr) 100px;
+    grid-template-rows: repeat(144, 5px);
+    gap: 1px;
+    overflow-y: auto;
+    height: 625px; /* Feste Höhe für Scrollen */
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    position: relative;
+}
+
+.weekday {
+    grid-column: span 1;
+    grid-row: span 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #ccc;
+}
+
+.time-label {
+    grid-column: 1;
+    grid-row: span 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ccc;
+}
+
+.appointment {
+    background-color: #ffa500;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}

@@ -8,58 +8,39 @@
 </head>
 </head>
 <body>
-    <header class="header">
+    <header>
         <h1>Termin Suchen</h1>
     </header>
-    <div class="main-content">
-
-        <div class="container">
-            <div class="search-complex">
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Suchen...">
-                    <button id="search-button">🔍</button>
-                </div>
-                <div class="search-results" id="clients">
-                    
-                </div>
-            </div>
-
-            <div class="filter-container">
-                <button class="modal-btn" id="hrund">Termin Grund</button>
-            </div>
+    <div class="search-container">
+        <div class="search-header">
+            <input type="text" id="search" placeholder="Suchen...">
+            <select id="termine-dropdown">
+                <option value="Blutabnahme">Blutabnahme</option>
+                <option value="Untersuchung">Untersuchung</option>
+                <option value="Beratung">Beratung</option>
+                <option value="Impfung">Impfung</option>
+            </select>
         </div>
-
-        <div class="container">
-            <div>
-                <label>Dauer: </label>
-                <input type="number" id="dauer" min="1" max="30"> </input>
-                <label> min</label>
+        
+        <div class="search-filters">
+            <div class="search-header">
+                <label for="duration">Dauer:</label>
+                <input type="number" min="5" step="5" id="duration" placeholder="min">
+            </div>
+            <div class="filters">
+                <label>Filter:</label>
+                <button class="main-button">Wochentage</button>
+                <button class="main-button">Zeitraum</button>
             </div>
         </div>
-
-        <div class="container">
-            <h3>Filter: </h3>
+        <div class="search-actions">
+            <button class="action-button" id="cancel">Abbrechen</button>
+            <button class="action-button" id="search-date">Suchen</button>
         </div>
-
-        <div class="container">
-            <div class="filter-container">
-                <button class="modal-btn" id="hrund">Wochentage</button>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="filter-container">
-                <button class="modal-btn" id="hrund">Zeitraum</button>
-            </div>
-        </div>
-
-        <div class="container" id="control-btn">
-            <button class="modal-btn" id="hrund">Abbrechen</button>
-            <button class="modal-btn" id="suchen-btn">Suchen</button>
-        </div>
-
     </div>
-
+    <div id="search-results" class="hidden">
+        <!-- Suchergebnisse werden hier eingefügt -->
+    </div>
     <script src="../static/script/termin.js"></script>
 </body>
 </html>

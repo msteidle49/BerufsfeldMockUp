@@ -3,63 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termin Suchen</title>
-    <link rel="stylesheet" href="../static/css/termin.css">
+    <title>Termin Wahl</title>
+    <link rel="stylesheet" href="../static/css/terminWahl.css">
 </head>
 </head>
 <body>
     <header class="header">
+        <button type="button" id="back">Zurück</button>
         <h1>Termin Wahl</h1>
+        <button type="button" id="cancel">Abbrechen</button>
     </header>
     <div class="main-content">
+        <div class="calendar active" id="calendar-week">
+            <div class="weekday empty"></div>
+            <div class="weekday">Mo., </div>
+            <div class="weekday">Di., </div>
+            <div class="weekday">Mi., </div>
+            <div class="weekday">Do., </div>
+            <div class="weekday">Fr., </div>
+            <div class="weekday empty"></div>
+        
+            <!-- Timeslot labels -->
+            <div class="time-label">7:00</div>
+            <div class="time-label">7:30</div>
+            <div class="time-label">8:00</div>
+            <div class="time-label">8:30</div>
+            <div class="time-label">9:00</div>
+            <div class="time-label">9:30</div>
+            <div class="time-label">10:00</div>
+            <div class="time-label">10:30</div>
+            <div class="time-label">11:00</div>
+            <div class="time-label">11:30</div>
+            <div class="time-label">12:00</div>
+            <div class="time-label">12:30</div>
+            <div class="time-label">13:00</div>
+            <div class="time-label">13:30</div>
+            <div class="time-label">14:00</div>
+            <div class="time-label">14:30</div>
+            <div class="time-label">15:00</div>
+            <div class="time-label">15:30</div>
+            <div class="time-label">16:00</div>
+            <div class="time-label">16:30</div>
+            <div class="time-label">17:00</div>
+            <div class="time-label">17:30</div>
+            <div class="time-label">18:00</div>
 
-        <div class="container">
-            <div class="search-complex">
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Suchen...">
-                    <button id="search-button">🔍</button>
-                </div>
-                <div class="search-results" id="clients">
-                    
-                </div>
-            </div>
-
-            <div class="filter-container">
-                <button class="modal-btn" id="hrund">Termin Grund</button>
-            </div>
+            
+            <div class="appointment" style="grid-row: 7 / span 6; grid-column: 2;">A - B</div>
+            <div class="appointment" style="grid-row: 15 / span 3; grid-column: 3;">C - D</div>
+            <div class="appointment" style="grid-row: 21 / span 6; grid-column: 4;">E - F</div>
+            
         </div>
-
-        <div class="container">
-            <div>
-                <label>Dauer: </label>
-                <input type="number" id="dauer" min="1" max="30"> </input>
-                <label> min</label>
-            </div>
-        </div>
-
-        <div class="container">
-            <h3>Filter: </h3>
-        </div>
-
-        <div class="container">
-            <div class="filter-container">
-                <button class="modal-btn" id="hrund">Wochentage</button>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="filter-container">
-                <button class="modal-btn" id="hrund">Zeitraum</button>
-            </div>
-        </div>
-
-        <div class="container" id="control-btn">
-            <button class="modal-btn" id="hrund">Abbrechen</button>
-            <button class="modal-btn" id="hrund">Suchen</button>
-        </div>
-
     </div>
 
-    <script src="../static/script/termin.js"></script>
+    <script src="../static/script/terminWahl.js"></script>
 </body>
 </html>
