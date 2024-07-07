@@ -1,5 +1,27 @@
 // script.js
+// import { getPatientNamesFromJSON } from './module.js';
+
+let patientenNamen = [];
+let alleTermine = [];
 let localDate = new Date();
+const jsonFilePath = '/get_json_data';
+const jsonFilePathTermine = '/get_termin_data';
+
+getPatientNamesFromJSON(jsonFilePath)
+.then(patientNames => {
+    patientenNamen = patientNames;
+})
+.catch(error => {
+    console.error('Fehler beim Laden der Daten:', error);
+});
+
+getTermineFromJSON(jsonFilePathTermine)
+.then(appointments => {
+    alleTermine = appointments;
+})
+.catch(error => {
+    console.error('Fehler beim Laden der Daten:', error);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     // Elemente des Kalenders holen
@@ -14,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn_day = document.getElementById('days-btn');
     const btn_week = document.getElementById('weeks-btn');
     const calendar_week = document.getElementById('calendar-week');
+    const calendar_week_appointments = document.getElementById('calendar-week-appointments');
     const calendar_day = document.getElementById('calendar-day');
 
     const openModalButtonStatus = document.getElementById('open-modal-status');
@@ -27,13 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     terminbtn.addEventListener('click', () => {
         window.location.href = '/termin';
     });
-
-    const data = [
-        // Beispiel-Daten. Ersetzen Sie diese durch Ihre echten Daten.
-        'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa',
-        'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon',
-        'Phi', 'Chi', 'Psi', 'Omega'
-    ];
 
     // Event-Listener für den Button zum Ändern des Kalendertyp
     btn_day.addEventListener('click', () => {
@@ -63,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchInput.addEventListener('input', () => {
         const query = searchInput.value.toLowerCase();
-        const filteredResults = data.filter(item => item.toLowerCase().includes(query)).sort();
+        const filteredResults = patientenNamen.filter(item => item.toLowerCase().includes(query)).sort();
 
         displayResults(filteredResults.slice(0, 20), query);
     });
@@ -106,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Erster Tag des Monats und Anzahl der Tage im Monat
         const firstDayOfMonth = new Date(year, month, 1).getDay();
-        console.log(firstDayOfMonth);
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
         // Anzahl der Tage des vorherigen Monats
@@ -186,12 +201,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const startOfWeek = getStartOfWeek(date);
         let weekdayElements = document.querySelectorAll('.weekday');
         
+
         weekdayElements.forEach((el, index) => {
             if(!el.classList.contains('empty') )
             {
                 const day = new Date(startOfWeek);
                 day.setDate(startOfWeek.getDate() + index-1);
                 el.textContent = formatDate(day);
+                const todaysAppointments = checkTodayAppointments(alleTermine, day);
+                console.log("In update: ");
+                for (let i = 0; i < todaysAppointments.length; i++) {
+                    const element = createAppointment(todaysAppointments[i][0]+5, todaysAppointments[i][1], index+1, todaysAppointments[i][2])
+                    calendar_week_appointments.appendChild(element);
+                }
             }
         });
         weekdayElements = document.querySelectorAll('.weekday-day');
@@ -200,6 +222,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if(!el.classList.contains('empty') )
             {
                 el.textContent = formatDate(date);
+                const todaysAppointments = checkTodayAppointments(alleTermine, date);
+                console.log("In update: ");
+                for (let i = 0; i < todaysAppointments.length; i++) {
+                    const element = createAppointment(todaysAppointments[i][0], todaysAppointments[i][1], 2, todaysAppointments[i][2])
+                    calendar_day.appendChild(element);
+                }
             }
         });
 
@@ -221,6 +249,83 @@ document.addEventListener('DOMContentLoaded', () => {
         return date.toLocaleDateString('de-DE', options);
     }
 
+    // Methode zur Überprüfung, ob heute Termine stattfinden und die Zeiten zurückgeben
+    function checkTodayAppointments(appointments, date) {
+        const today = date.toISOString().split('T')[0];
+        const todaysAppointments = appointments.filter(appointment => appointment.date === today);
+        
+        if (todaysAppointments.length === 0) {
+        return [];
+        }
+        
+        return todaysAppointments.map(appointment => {
+        const { type, start, end, patient } = appointment;
+        const [start2, duration] = calculateDuration(start, end);
+        console.log("In Check: Start: " + start2 + " Duration: " + duration);
+        return [start2, duration, type];
+        // return `Typ: ${type}, Patient: ${patient}, Start: ${start}, Ende: ${end}, Dauer: ${duration}`;
+        });
+    }
+  
+    // Hilfsfunktion zur Berechnung der Dauer eines Termins
+    function calculateDuration(start, end) {
+        const [startHour, startMinute] = start.split(':').map(Number);
+        const [endHour, endMinute] = end.split(':').map(Number);
+        
+        const firstTime = 420;
+        const timeMinutes = (startHour*60) + startMinute;
+        let startRow = (timeMinutes-firstTime) / 5 + 2;
+        const startDate = new Date(0, 0, 0, startHour, startMinute);
+        const endDate = new Date(0, 0, 0, endHour, endMinute);
+        
+        let diff = endDate - startDate;
+        const minutes = Math.floor(diff / 1000 / 60);
+        console.log("In calc: start: " + startRow + " Duration: " + minutes/5);
+        return [startRow, minutes/5];
+    }
+
+    // Funktion zum Erstellen eines Appointment-Elements
+    function createAppointment(rowStart, rowSpan, col, type) {
+        // Neues Div-Element erstellen
+        const appointment = document.createElement('div');
+        // Klasse hinzufügen
+        appointment.classList.add('appointment-' + type);
+       
+        // CSS-Stile setzen
+        appointment.style.gridRow = `${rowStart} / span ${rowSpan}`;
+        appointment.style.gridColumn = col;
+
+        return appointment;
+    }
+
     // Initiales Rendern des Kalenders
     renderCalendar(currentDate);
 });
+
+async function getPatientNamesFromJSON(jsonFilePath) {
+    try {
+      const response = await fetch(jsonFilePath);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      const patientNames = data.map(patient => `${patient.Nachname}, ${patient.Vorname}`);
+      return patientNames;
+    } catch (error) {
+      throw new Error('Fehler beim Laden der Daten:', error);
+    }
+  }
+
+  async function getTermineFromJSON(jsonFilePath) {
+    try {
+      const response = await fetch(jsonFilePath);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      throw new Error('Fehler beim Laden der Daten:', error);
+    }
+  }

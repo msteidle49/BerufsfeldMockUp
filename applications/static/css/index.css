@@ -204,15 +204,14 @@ button {
     height: 25px;
     width: 25px;
     margin-right: 10px;
-    background-color: #ea1515;
   }
 
   #Vorsorge-box {
-    background-color: blue;
+    background-color: green;
   }
 
   #Besprechung-box {
-    background-color: #ffc107;
+    background-color: yellow;
   }
 
   #Impfung-box {
@@ -220,7 +219,7 @@ button {
   }
 
   #Notfall-box {
-    background-color: green;
+    background-color: red;
   }
 
   #Blutabnahme-box {
@@ -272,11 +271,26 @@ input[type="checkbox"] {
     grid-template-rows: repeat(144, 5px);
     gap: 1px;
     overflow-y: auto;
-    height: 580px; /* Feste Höhe für Scrollen */
+    height: 600px; /* Feste Höhe für Scrollen */
     border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #fff;
+    padding: 1px;
+    background-color: black;
     position: relative;
+}
+
+#calendar-week-appointments {
+    display: grid;
+    grid-template-columns: 100px repeat(5, 1fr);
+    grid-template-rows: repeat(144, 5px);
+    gap: 1px;
+    overflow-y: auto;
+    height: 600px; /* Feste Höhe für Scrollen */
+    border: 1px solid #ccc;
+    padding: 1px;
+    background-color: transparent;
+    top: 142px;
+    width: 77%;
+    position: absolute;
 }
 
 #calendar-day {
@@ -285,9 +299,9 @@ input[type="checkbox"] {
     grid-template-rows: repeat(134, 35px); 
     gap: 1px;
     overflow-y: auto;
-    height: 580px; /* Feste Höhe für Scrollen */
+    height: 600px; /* Feste Höhe für Scrollen */
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 1px;
     background-color: #fff;
     position: relative;
 }
@@ -313,6 +327,12 @@ input[type="checkbox"] {
     border-bottom: 1px solid #ccc;
 }
 
+.test {
+    grid-row: span 6;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
 .weekday-day {
     grid-column: span 1;
     grid-row: span 1;
@@ -334,8 +354,40 @@ input[type="checkbox"] {
     border-bottom: 1px solid #ccc;
 }
 
-.appointment {
-    background-color: #ffa500;
+.appointment-notfall {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.appointment-vorsorge {
+    background-color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.appointment-besprechung {
+    background-color: yellow;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.appointment-impfung {
+    background-color: blueviolet;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.appointment-blutabnahme {
+    background-color: orange;
     color: white;
     padding: 5px;
     border-radius: 4px;

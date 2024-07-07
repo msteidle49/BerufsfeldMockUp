@@ -1,0 +1,37 @@
+[
+    {
+        "type": "blutabnahme",
+        "patient": 1,
+        "date": "2024-07-04",
+        "start": "8:00",
+        "end": "8:15"
+    },
+    {
+        "type": "vorsorge",
+        "patient": 20,
+        "date": "2024-07-04",
+        "start": "10:00",
+        "end": "10:05"
+    },
+    {
+        "type": "impfung",
+        "patient": 15,
+        "date": "2024-07-04",
+        "start": "10:30",
+        "end": "10:40"
+    },
+    {
+        "type": "notfall",
+        "patient": 11,
+        "date": "2024-07-04",
+        "start": "11:00",
+        "end": "11:15"
+    },
+    {
+        "type": "besprechung",
+        "patient": 41,
+        "date": "2024-07-04",
+        "start": "11:30",
+        "end": "11:35"
+    }
+]
