@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn_day = document.getElementById('days-btn');
     const btn_week = document.getElementById('weeks-btn');
     const calendar_week = document.getElementById('calendar-week');
-    const calendar_week_appointments = document.getElementById('calendar-week-appointments');
     const calendar_day = document.getElementById('calendar-day');
 
     const openModalButtonStatus = document.getElementById('open-modal-status');
@@ -212,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("In update: ");
                 for (let i = 0; i < todaysAppointments.length; i++) {
                     const element = createAppointment(todaysAppointments[i][0]+5, todaysAppointments[i][1], index+1, todaysAppointments[i][2])
-                    calendar_week_appointments.appendChild(element);
+                    calendar_week.appendChild(element);
                 }
             }
         });

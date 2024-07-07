@@ -274,23 +274,8 @@ input[type="checkbox"] {
     height: 600px; /* Feste Höhe für Scrollen */
     border: 1px solid #ccc;
     padding: 1px;
-    background-color: black;
+    background-color: #fff;
     position: relative;
-}
-
-#calendar-week-appointments {
-    display: grid;
-    grid-template-columns: 100px repeat(5, 1fr);
-    grid-template-rows: repeat(144, 5px);
-    gap: 1px;
-    overflow-y: auto;
-    height: 600px; /* Feste Höhe für Scrollen */
-    border: 1px solid #ccc;
-    padding: 1px;
-    background-color: transparent;
-    top: 142px;
-    width: 77%;
-    position: absolute;
 }
 
 #calendar-day {
@@ -325,12 +310,6 @@ input[type="checkbox"] {
     justify-content: center;
     background-color: #f1f1f1;
     border-bottom: 1px solid #ccc;
-}
-
-.test {
-    grid-row: span 6;
-    background-color: #fff;
-    border: 1px solid #ccc;
 }
 
 .weekday-day {
@@ -449,9 +428,4 @@ input[type="checkbox"] {
 .search-results.active {
     display: flex;
     flex-direction: column;
-}
-
-#Vorsorge {
-    accent-color: aqua;
-    border-color: black;
 }
