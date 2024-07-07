@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const todaysAppointments = checkTodayAppointments(alleTermine, day);
                 console.log("In update: ");
                 for (let i = 0; i < todaysAppointments.length; i++) {
-                    const element = createAppointment(todaysAppointments[i][0]+5, todaysAppointments[i][1], index+1, todaysAppointments[i][2])
+                    const element = createAppointment(todaysAppointments[i][0], todaysAppointments[i][1], index+1, todaysAppointments[i][2])
                     if(element) {
                         calendar_week.appendChild(element);
                     }

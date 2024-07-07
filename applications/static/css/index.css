@@ -268,7 +268,7 @@ input[type="checkbox"] {
 #calendar-week {
     display: grid;
     grid-template-columns: 100px repeat(5, 1fr);
-    grid-template-rows: repeat(144, 5px);
+    grid-template-rows: repeat(134, 35px);
     gap: 1px;
     overflow-y: auto;
     height: 600px; /* Feste Höhe für Scrollen */
@@ -293,7 +293,7 @@ input[type="checkbox"] {
 
 .weekday {
     grid-column: span 1;
-    grid-row: span 6;
+    grid-row: span 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -304,7 +304,7 @@ input[type="checkbox"] {
 
 .time-label {
     grid-column: 1;
-    grid-row: span 6;
+    grid-row: span 1;
     display: flex;
     align-items: center;
     justify-content: center;
