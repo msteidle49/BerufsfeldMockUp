@@ -6,6 +6,7 @@ let alleTermine = [];
 let localDate = new Date();
 const jsonFilePath = '/get_json_data';
 const jsonFilePathTermine = '/get_termin_data';
+let id = 0;
 
 getPatientNamesFromJSON(jsonFilePath)
 .then(patientNames => {
@@ -15,15 +16,14 @@ getPatientNamesFromJSON(jsonFilePath)
     console.error('Fehler beim Laden der Daten:', error);
 });
 
-getTermineFromJSON(jsonFilePathTermine)
-.then(appointments => {
-    alleTermine = appointments;
-})
-.catch(error => {
-    console.error('Fehler beim Laden der Daten:', error);
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await getTermineFromJSON(jsonFilePathTermine)
+    .then(appointments => {
+        alleTermine = appointments;
+    })
+    .catch(error => {
+        console.error('Fehler beim Laden der Daten:', error);
+    });
     // Elemente des Kalenders holen
     const filter = document.getElementById('filter');
     const status = document.getElementById('status');
@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchResults = document.getElementById('clients');
 
     const terminbtn = document.getElementById('termin-btn');
+
+    const vorsorge_checkbox = document.getElementById('Vorsorge');
+    const blutabnahme_checkbox = document.getElementById('Blutabnahme');
+    const impfung_checkbox = document.getElementById('Impfung');
+    const besprechung_checkbox = document.getElementById('Besprechung');
+    const notfall_checkbox = document.getElementById('Notfall');
 
     terminbtn.addEventListener('click', () => {
         window.location.href = '/termin';
@@ -199,7 +205,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCalendar(date) {
         const startOfWeek = getStartOfWeek(date);
         let weekdayElements = document.querySelectorAll('.weekday');
-        
+        let app = document.querySelectorAll('.appointment');
+
+        app.forEach((el, index) => {
+            if(calendar_day.contains(el)){
+                calendar_day.removeChild(el);
+            }
+            if(calendar_week.contains(el)){
+                calendar_week.removeChild(el);
+            }
+        });
 
         weekdayElements.forEach((el, index) => {
             if(!el.classList.contains('empty') )
@@ -211,7 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("In update: ");
                 for (let i = 0; i < todaysAppointments.length; i++) {
                     const element = createAppointment(todaysAppointments[i][0]+5, todaysAppointments[i][1], index+1, todaysAppointments[i][2])
-                    calendar_week.appendChild(element);
+                    if(element) {
+                        calendar_week.appendChild(element);
+                    }
                 }
             }
         });
@@ -225,7 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("In update: ");
                 for (let i = 0; i < todaysAppointments.length; i++) {
                     const element = createAppointment(todaysAppointments[i][0], todaysAppointments[i][1], 2, todaysAppointments[i][2])
-                    calendar_day.appendChild(element);
+                    if(element) {
+                        calendar_day.appendChild(element);
+                    }
                 }
             }
         });
@@ -285,17 +304,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funktion zum Erstellen eines Appointment-Elements
     function createAppointment(rowStart, rowSpan, col, type) {
+        switch (type) {
+            case 'besprechung':
+                if (!besprechung_checkbox.checked) {
+                    return null;
+                }
+                break;
+            case 'vorsorge':
+                if (!vorsorge_checkbox.checked) {
+                    return null;
+                }
+                break;
+            case 'impfung':
+                if (!impfung_checkbox.checked) {
+                    return null;
+                }
+                break;
+            case 'notfall':
+                if (!notfall_checkbox.checked) {
+                    return null;
+                }
+                break;
+            case 'blutabnahme':
+                if (!blutabnahme_checkbox.checked) {
+                    return null;
+                }
+                break;
+        }
+
         // Neues Div-Element erstellen
         const appointment = document.createElement('div');
         // Klasse hinzufügen
-        appointment.classList.add('appointment-' + type);
-       
+        appointment.classList.add('appointment');
+        appointment.classList.add(type);
+
         // CSS-Stile setzen
-        appointment.style.gridRow = `${rowStart} / span ${rowSpan}`;
+        if(rowSpan > 1){
+            appointment.style.gridRow = `${rowStart} / span ${rowSpan}`;
+        } else {
+            appointment.style.gridRow = rowStart;
+        }
         appointment.style.gridColumn = col;
 
         return appointment;
     }
+
+    vorsorge_checkbox.addEventListener('change', function () {
+        updateCalendar(currentDate);
+    });
+    notfall_checkbox.addEventListener('change', function () {
+        updateCalendar(currentDate);
+    });
+    besprechung_checkbox.addEventListener('change', function () {
+        updateCalendar(currentDate);
+    });
+    impfung_checkbox.addEventListener('change', function () {
+        updateCalendar(currentDate);
+    });
+    blutabnahme_checkbox.addEventListener('change', function () {
+        updateCalendar(currentDate);
+    });
+
 
     // Initiales Rendern des Kalenders
     renderCalendar(currentDate);

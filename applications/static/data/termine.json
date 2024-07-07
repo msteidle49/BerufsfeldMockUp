@@ -33,5 +33,75 @@
         "date": "2024-07-04",
         "start": "11:30",
         "end": "11:35"
+    },
+    {
+        "type": "besprechung",
+        "patient": 12,
+        "date": "2024-07-08",
+        "start": "7:15",
+        "end": "7:45"
+    },
+    {
+        "type": "notfall",
+        "patient": 13,
+        "date": "2024-07-08",
+        "start": "8:00",
+        "end": "8:15"
+    },
+    {
+        "type": "impfung",
+        "patient": 14,
+        "date": "2024-07-08",
+        "start": "8:30",
+        "end": "8:35"
+    },
+    {
+        "type": "vorsorge",
+        "patient": 15,
+        "date": "2024-07-08",
+        "start": "8:35",
+        "end": "8:45"
+    },
+    {
+        "type": "besprechung",
+        "patient": 16,
+        "date": "2024-07-08",
+        "start": "9:00",
+        "end": "9:05"
+    },
+    {
+        "type": "blutabnahme",
+        "patient": 17,
+        "date": "2024-07-08",
+        "start": "9:10",
+        "end": "9:35"
+    },
+    {
+        "type": "vorsorge",
+        "patient": 18,
+        "date": "2024-07-08",
+        "start": "10:30",
+        "end": "10:35"
+    },
+    {
+        "type": "besprechung",
+        "patient": 19,
+        "date": "2024-07-08",
+        "start": "10:50",
+        "end": "11:35"
+    },
+    {
+        "type": "impfung",
+        "patient": 20,
+        "date": "2024-07-08",
+        "start": "11:35",
+        "end": "12:00"
+    },
+    {
+        "type": "besprechung",
+        "patient": 21,
+        "date": "2024-07-08",
+        "start": "16:00",
+        "end": "16:20"
     }
 ]

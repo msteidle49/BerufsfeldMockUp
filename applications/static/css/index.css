@@ -333,44 +333,31 @@ input[type="checkbox"] {
     border-bottom: 1px solid #ccc;
 }
 
-.appointment-notfall {
+.appointment {
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.appointment.notfall {
     background-color: red;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    z-index: 1;
 }
 
-.appointment-vorsorge {
+.appointment.vorsorge {
     background-color: green;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    z-index: 1;
 }
 
-.appointment-besprechung {
+.appointment.besprechung {
     background-color: yellow;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    z-index: 1;
 }
 
-.appointment-impfung {
+.appointment.impfung {
     background-color: blueviolet;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    z-index: 1;
 }
 
-.appointment-blutabnahme {
+.appointment.blutabnahme {
     background-color: orange;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    z-index: 1;
 }
 
 .nav-btn-group {
