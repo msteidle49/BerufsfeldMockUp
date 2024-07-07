@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/css/index.css">
 </head>
 <body>
+    <div id="overlay" class="overlay"></div>
     <!-- Header -->
     <header class="header">
         <div class="search-complex">
@@ -24,6 +25,34 @@
             Logout
         </button>
     </header>
+
+    <div class="termin-search-container" id="search-window">
+        <div class="search-header">
+            <div class="search-complex">
+                <input type="text" id="search" placeholder="Suchen...">
+                <div id="search-results" class="hidden">
+                    <!-- Suchergebnisse werden hier eingefügt -->
+                </div>
+            </div>
+            <select id="termine-dropdown">
+                <option value="Besprechung">Besprechung</option>
+                <option value="Blutabnahme">Blutabnahme</option>
+                <option value="Vorsorge">Vorsorge</option>
+                <option value="Impfung">Impfung</option>
+                <option value="Notfall">Notfall</option>
+            </select>
+        </div>
+        <div class="search-filters">
+            <div class="search-header">
+                <label for="duration">Dauer:</label>
+                <input type="number" value:"15" min="10" max="55" step="5" id="duration">
+            </div>
+        </div>
+        <div class="search-actions">
+            <button class="action-button" id="cancel">Abbrechen</button>
+            <button class="action-button" id="search-date">Suchen</button>
+        </div>
+    </div>
 
     <div class="main-content">
         <div class="left-content">
@@ -100,158 +129,70 @@
                 <button class="nav-btn active" id="weeks-btn">Wochen</button>
             </div>
             <div class="calendar" id="calendar-week">
-                    <div class="weekday empty"></div>
-                    <div class="weekday">Mo., </div>
-                    <div class="weekday">Di., </div>
-                    <div class="weekday">Mi., </div>
-                    <div class="weekday">Do., </div>
-                    <div class="weekday">Fr., </div>
+                <div class="weekday empty"></div>
+                <div class="weekday">Mo., </div>
+                <div class="weekday">Di., </div>
+                <div class="weekday">Mi., </div>
+                <div class="weekday">Do., </div>
+                <div class="weekday">Fr., </div>
+            
+                <!-- Timeslot labels -->
+                <div class="time-label">7:00</div>
+                <div class="time-label">7:15</div>
+                <div class="time-label">7:30</div>
+                <div class="time-label">7:45</div>
                 
-                    <!-- Timeslot labels -->
-                    <div class="time-label-day">7:00</div>
-                <div class="time-label-day">7:05</div>
-                <div class="time-label-day">7:10</div>
-                <div class="time-label-day">7:15</div>
-                <div class="time-label-day">7:20</div>
-                <div class="time-label-day">7:25</div>
-                <div class="time-label-day">7:30</div>
-                <div class="time-label-day">7:35</div>
-                <div class="time-label-day">7:40</div>
-                <div class="time-label-day">7:45</div>
-                <div class="time-label-day">7:50</div>
-                <div class="time-label-day">7:55</div>
-
-                <div class="time-label-day">8:00</div>
-                <div class="time-label-day">8:05</div>
-                <div class="time-label-day">8:10</div>
-                <div class="time-label-day">8:15</div>
-                <div class="time-label-day">8:20</div>
-                <div class="time-label-day">8:25</div>
-                <div class="time-label-day">8:30</div>
-                <div class="time-label-day">8:35</div>
-                <div class="time-label-day">8:40</div>
-                <div class="time-label-day">8:45</div>
-                <div class="time-label-day">8:50</div>
-                <div class="time-label-day">8:55</div>
-
-                <div class="time-label-day">9:00</div>
-                <div class="time-label-day">9:05</div>
-                <div class="time-label-day">9:10</div>
-                <div class="time-label-day">9:15</div>
-                <div class="time-label-day">9:20</div>
-                <div class="time-label-day">9:25</div>
-                <div class="time-label-day">9:30</div>
-                <div class="time-label-day">9:35</div>
-                <div class="time-label-day">9:40</div>
-                <div class="time-label-day">9:45</div>
-                <div class="time-label-day">9:50</div>
-                <div class="time-label-day">9:55</div>
-
-                <div class="time-label-day">10:00</div>
-                <div class="time-label-day">10:05</div>
-                <div class="time-label-day">10:10</div>
-                <div class="time-label-day">10:15</div>
-                <div class="time-label-day">10:20</div>
-                <div class="time-label-day">10:25</div>
-                <div class="time-label-day">10:30</div>
-                <div class="time-label-day">10:35</div>
-                <div class="time-label-day">10:40</div>
-                <div class="time-label-day">10:45</div>
-                <div class="time-label-day">10:50</div>
-                <div class="time-label-day">10:55</div>
-
-                <div class="time-label-day">11:00</div>
-                <div class="time-label-day">11:05</div>
-                <div class="time-label-day">11:10</div>
-                <div class="time-label-day">11:15</div>
-                <div class="time-label-day">11:20</div>
-                <div class="time-label-day">11:25</div>
-                <div class="time-label-day">11:30</div>
-                <div class="time-label-day">11:35</div>
-                <div class="time-label-day">11:40</div>
-                <div class="time-label-day">11:45</div>
-                <div class="time-label-day">11:50</div>
-                <div class="time-label-day">11:55</div>
-
-                <div class="time-label-day">12:00</div>
-                <div class="time-label-day">12:05</div>
-                <div class="time-label-day">12:10</div>
-                <div class="time-label-day">12:15</div>
-                <div class="time-label-day">12:20</div>
-                <div class="time-label-day">12:25</div>
-                <div class="time-label-day">12:30</div>
-                <div class="time-label-day">12:35</div>
-                <div class="time-label-day">12:40</div>
-                <div class="time-label-day">12:45</div>
-                <div class="time-label-day">12:50</div>
-                <div class="time-label-day">12:55</div>
-
-                <div class="time-label-day">13:00</div>
-                <div class="time-label-day">13:05</div>
-                <div class="time-label-day">13:10</div>
-                <div class="time-label-day">13:15</div>
-                <div class="time-label-day">13:20</div>
-                <div class="time-label-day">13:25</div>
-                <div class="time-label-day">13:30</div>
-                <div class="time-label-day">13:35</div>
-                <div class="time-label-day">13:40</div>
-                <div class="time-label-day">13:45</div>
-                <div class="time-label-day">13:50</div>
-                <div class="time-label-day">13:55</div>
-
-                <div class="time-label-day">14:00</div>
-                <div class="time-label-day">14:05</div>
-                <div class="time-label-day">14:10</div>
-                <div class="time-label-day">14:15</div>
-                <div class="time-label-day">14:20</div>
-                <div class="time-label-day">14:25</div>
-                <div class="time-label-day">14:30</div>
-                <div class="time-label-day">14:35</div>
-                <div class="time-label-day">14:40</div>
-                <div class="time-label-day">14:45</div>
-                <div class="time-label-day">14:50</div>
-                <div class="time-label-day">14:55</div>
-
-                <div class="time-label-day">15:00</div>
-                <div class="time-label-day">15:05</div>
-                <div class="time-label-day">15:10</div>
-                <div class="time-label-day">15:15</div>
-                <div class="time-label-day">15:20</div>
-                <div class="time-label-day">15:25</div>
-                <div class="time-label-day">15:30</div>
-                <div class="time-label-day">15:35</div>
-                <div class="time-label-day">15:40</div>
-                <div class="time-label-day">15:45</div>
-                <div class="time-label-day">15:50</div>
-                <div class="time-label-day">15:55</div>
-
-                <div class="time-label-day">16:00</div>
-                <div class="time-label-day">16:05</div>
-                <div class="time-label-day">16:10</div>
-                <div class="time-label-day">16:15</div>
-                <div class="time-label-day">16:20</div>
-                <div class="time-label-day">16:25</div>
-                <div class="time-label-day">16:30</div>
-                <div class="time-label-day">16:35</div>
-                <div class="time-label-day">16:40</div>
-                <div class="time-label-day">16:45</div>
-                <div class="time-label-day">16:50</div>
-                <div class="time-label-day">16:55</div>
-
-                <div class="time-label-day">17:00</div>
-                <div class="time-label-day">17:05</div>
-                <div class="time-label-day">17:10</div>
-                <div class="time-label-day">17:15</div>
-                <div class="time-label-day">17:20</div>
-                <div class="time-label-day">17:25</div>
-                <div class="time-label-day">17:30</div>
-                <div class="time-label-day">17:35</div>
-                <div class="time-label-day">17:40</div>
-                <div class="time-label-day">17:45</div>
-                <div class="time-label-day">17:50</div>
-                <div class="time-label-day">17:55</div>
-
-                <div class="time-label-day">18:00</div>                    
+                <div class="time-label">8:00</div>
+                <div class="time-label">8:15</div>
+                <div class="time-label">8:30</div>
+                <div class="time-label">8:45</div>
+                
+                <div class="time-label">9:00</div>
+                <div class="time-label">9:15</div>
+                <div class="time-label">9:30</div>
+                <div class="time-label">9:45</div>
+                
+                <div class="time-label">10:00</div>
+                <div class="time-label">10:15</div>
+                <div class="time-label">10:30</div>
+                <div class="time-label">10:45</div>
+                
+                <div class="time-label">11:00</div>
+                <div class="time-label">11:15</div>
+                <div class="time-label">11:30</div>
+                <div class="time-label">11:45</div>
+                
+                <div class="time-label">12:00</div>
+                <div class="time-label">12:15</div>
+                <div class="time-label">12:30</div>
+                <div class="time-label">12:45</div>
+                
+                <div class="time-label">13:00</div>
+                <div class="time-label">13:15</div>
+                <div class="time-label">13:30</div>
+                <div class="time-label">13:45</div>
+                
+                <div class="time-label">14:00</div>
+                <div class="time-label">14:15</div>
+                <div class="time-label">14:30</div>
+                <div class="time-label">14:45</div>
+                
+                <div class="time-label">15:00</div>
+                <div class="time-label">15:15</div>
+                <div class="time-label">15:30</div>
+                <div class="time-label">15:45</div>
+                
+                <div class="time-label">16:00</div>
+                <div class="time-label">16:15</div>
+                <div class="time-label">16:30</div>
+                <div class="time-label">16:45</div>
+                
+                <div class="time-label">17:00</div>
+                <div class="time-label">17:15</div>
+                <div class="time-label">17:30</div>
+                <div class="time-label">17:45</div>
+                
+                <div class="time-label">18:00</div>                    
             </div>
 
             <div class="calendar" id="calendar-day">

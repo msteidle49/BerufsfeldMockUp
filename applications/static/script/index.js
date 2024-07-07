@@ -52,8 +52,81 @@ document.addEventListener('DOMContentLoaded', async () => {
     const besprechung_checkbox = document.getElementById('Besprechung');
     const notfall_checkbox = document.getElementById('Notfall');
 
+    const searchDateBtn = document.getElementById('search-date');
+    const cancelBtn = document.getElementById('cancel');
+
+    const searchPatient = document.getElementById('search');
+    const searchResults2 = document.getElementById('search-results');
+
+    const dropdown = document.getElementById('termine-dropdown');
+    const duration = document.getElementById('duration');
+
+    const search_window = document.getElementById('search-window');
+    const overlay = document.getElementById('overlay');
+
+    duration.value = 15;
+
+    dropdown.addEventListener('change', () => {
+        const selectedDate = dropdown.value;
+        switch (selectedDate) {
+            case 'Blutabnahme':
+                duration.value = 10;
+                break;
+            case 'Vorsorge':
+                duration.value = 45;
+                break;
+            case 'Notfall':
+                duration.value = 15;
+                break;
+            case 'Impfung':
+                duration.value = 10;
+                break;
+            case 'Besprechung':
+                duration.value = 15;
+                break;
+
+        }
+    });
+
+    searchDateBtn.addEventListener('click', () => {
+        window.location.href = '/termin/wahl';
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        search_window.style.display = 'none';
+    });
+
+    searchPatient.addEventListener('input', () => {
+        const query = searchPatient.value.toLowerCase();
+        const filteredResults = patientenNamen.filter(item => item.toLowerCase().includes(query)).sort();
+
+        displayResults(filteredResults.slice(0, 20), query, searchResults2);
+    });
+
+    for (let i = 2; i < 7; i++) {
+        for (let j = 4; j < 139; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('default-slot');
+            cell.style.gridRow = j;
+            cell.style.gridColumn = i;
+            calendar_week.appendChild(cell);
+        }
+    }
+
+    for (let i = 2; i < 7; i++) {
+        for (let j = 2; j < 136; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('default-slot');
+            cell.style.gridRow = j;
+            cell.style.gridColumn = i;
+            calendar_day.appendChild(cell);
+        }
+    }
+
     terminbtn.addEventListener('click', () => {
-        window.location.href = '/termin';
+        overlay.style.display = 'block';
+        search_window.style.display = 'flex';
     });
 
     // Event-Listener für den Button zum Ändern des Kalendertyp
@@ -86,25 +159,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         const query = searchInput.value.toLowerCase();
         const filteredResults = patientenNamen.filter(item => item.toLowerCase().includes(query)).sort();
 
-        displayResults(filteredResults.slice(0, 20), query);
+        displayResults(filteredResults.slice(0, 20), query, searchResults);
     });
 
-    function displayResults(results, query) {
-        searchResults.innerHTML = '';
+    function displayResults(results, query, elem, openWindow) {
+        elem.innerHTML = '';
 
         if (results.length > 0 && query.length > 0) {
-            searchResults.classList.add('active');
+            elem.classList.add('active');
             results.forEach(result => {
                 const resultDiv = document.createElement('span');
                 resultDiv.textContent = result;
-                resultDiv.addEventListener('click', () => {
-                    searchInput.value = result
-                    searchResults.classList.remove('active');
-                });
-                searchResults.appendChild(resultDiv);
+                if (!openWindow){
+                    resultDiv.addEventListener('click', () => {
+                        searchPatient.value = result
+                        elem.classList.remove('active');
+                    });
+                }
+                elem.appendChild(resultDiv);
             });
         } else {
-            searchResults.classList.remove('active');
+            elem.classList.remove('active');
         }
     }
 
@@ -225,7 +300,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const todaysAppointments = checkTodayAppointments(alleTermine, day);
                 console.log("In update: ");
                 for (let i = 0; i < todaysAppointments.length; i++) {
-                    const element = createAppointment(todaysAppointments[i][0], todaysAppointments[i][1], index+1, todaysAppointments[i][2])
+                    const element = createAppointment(todaysAppointments[i][0]+2, todaysAppointments[i][1], index+1, todaysAppointments[i][2])
                     if(element) {
                         calendar_week.appendChild(element);
                     }
