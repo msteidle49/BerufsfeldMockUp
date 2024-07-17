@@ -10,11 +10,6 @@ def login():
 def index():
     return render_template('index.html')
 
-
-@app.route('/termin/wahl')
-def terminwahl():
-    return render_template('terminWahl.html')
-
 @app.route('/patient')
 def patient():
     return render_template('patient.html')

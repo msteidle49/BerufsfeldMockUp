@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender</title>
+    <link rel="icon" href="../static/images/BI_Logo2.jfif" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/patient.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div id="overlay" class="overlay"></div>
+    <div class="header">
+        <div class="patient-name">Max Mustermann</div>
+        <button class="back-button" id="back">Zurück</button>
+    </div>
+    <div class="main-content">
+        <div class="termin-search-container" id="search-window">
+            <div class="search-header">
+                <div class="search-complex">
+                    <input type="text" id="search" placeholder="Patient...">
+                    <div id="search-results" class="hidden">
+                        <!-- Suchergebnisse werden hier eingefügt -->
+                    </div>
+                </div>
+                <select id="termine-dropdown">
+                    <option value="Besprechung">Besprechung</option>
+                    <option value="Blutabnahme">Blutabnahme</option>
+                    <option value="Vorsorge">Vorsorge</option>
+                    <option value="Impfung">Impfung</option>
+                    <option value="Notfall">Notfall</option>
+                    <option value="Notfall">Sonstiges</option>
+                </select>
+            </div>
+            <div class="search-filters">
+                <div class="search-header">
+                    <label for="duration">Dauer:</label>
+                    <input type="number" value:"15" min="10" max="55" step="5" id="duration">
+                    <input type="datetime-local" id="termin-time"></input>
+                </div>
+            </div>
+            <div>
+                <label for="notiz">Notizen: </label>
+                <textarea rows="4" cols="50" id="notiz"></textarea>
+            </div>
+            <div class="search-actions">
+                <button class="action-button" id="cancel">Abbrechen</button>
+                <button class="action-button" id="search-date">Speichern</button>
+            </div>
+        </div>
+
+        <div class="profile">
+            <h2>Steckbrief</h2>
+            <p><strong>Geburtstag:</strong> 01. Januar 1980</p>
+            <p><strong>Adresse:</strong> Musterstraße 123, 12345 Musterstadt</p>
+            <p><strong>Notizen:</strong></p>
+            <div>
+                <textarea rows="6" cols="50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel tellus vel ex cursus consectetur. Donec vel diam at felis placerat dignissim. Nulla facilisi. Sed viverra, mauris vel dignissim laoreet, quam mi bibendum nunc, vel consectetur urna nunc at velit. Donec vel velit vel eros dignissim semper. Nulla facilisi.</textarea>
+            </div>
+        </div>
+        <div class="appointment-history">
+            <h2>Terminhistorie</h2>
+            <div class="appointment">
+                <span>01. Juli 2023 09:00 - Besprechung - 15 min - Besprechung bezüglich eines Medikaments</span>
+                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+              </div>
+              <div class="appointment">
+                <span>15. Juli 2023 10:00 - Impfung - 10 min - Corona Impfung</span>
+                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+              </div>
+              <div class="appointment next">
+                <span>29. Juli 2023 08:00 - Blutabnahme - 10 min - Kleines Blutbild</span>
+                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+              </div>
+              <div class="appointment">
+                <span>12. August 2023 13:00 - Vorsorge - 45 min</span>
+                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+              </div>
+              <div class="appointment">
+                <span>26. August 2023 08:00 - Besprechung - 15 min - Analyse kleines Blutbild</span>
+                <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+              </div>
+        </div>
+    </div>
+
+    <script type="module" src="../static/script/patient.js"></script>
+</body>
+</html>

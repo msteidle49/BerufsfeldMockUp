@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termin Suchen</title>
+    <link rel="stylesheet" href="../static/css/termin.css">
+</head>
+</head>
+<body>
+    <header>
+        <h1>Termin Suchen</h1>
+    </header>
+    <div class="search-container">
+        <div class="search-header">
+            <div class="search-complex">
+                <input type="text" id="search" placeholder="Suchen...">
+                <div id="search-results" class="hidden">
+                    <!-- Suchergebnisse werden hier eingefügt -->
+                </div>
+            </div>
+            <select id="termine-dropdown">
+                <option value="Besprechung">Besprechung</option>
+                <option value="Blutabnahme">Blutabnahme</option>
+                <option value="Vorsorge">Vorsorge</option>
+                <option value="Impfung">Impfung</option>
+                <option value="Notfall">Notfall</option>
+            </select>
+        </div>
+        <div class="search-filters">
+            <div class="search-header">
+                <label for="duration">Dauer:</label>
+                <input type="number" value:"15" min="10" max="55" step="5" id="duration">
+            </div>
+        </div>
+        <div class="search-actions">
+            <button class="action-button" id="cancel">Abbrechen</button>
+            <button class="action-button" id="search-date">Suchen</button>
+        </div>
+    </div>
+    <script src="../static/script/termin.js"></script>
+</body>
+</html>

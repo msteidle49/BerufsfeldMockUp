@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const search_window = document.getElementById('search-window');
     const overlay = document.getElementById('overlay');
 
+    const termin_time = document.getElementById('termin-time');
+
     duration.value = 15;
 
     dropdown.addEventListener('change', () => {
@@ -89,7 +91,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     searchDateBtn.addEventListener('click', () => {
-        window.location.href = '/termin/wahl';
+        createNewAppointment(dropdown.value, 2, termin_time.value, parseInt(duration.value) )
+        overlay.style.display = 'none';
+        search_window.style.display = 'none';
     });
 
     cancelBtn.addEventListener('click', () => {
@@ -110,6 +114,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             cell.classList.add('default-slot');
             cell.style.gridRow = j;
             cell.style.gridColumn = i;
+
+            cell.addEventListener('click', () => {
+                overlay.style.display = 'block';
+                search_window.style.display = 'flex';
+                dropdown.value = 'Besprechung'
+                duration.value = 15;
+                console.log(setDate(j-4, i-2));
+                termin_time.value = setDate(j-4, i-2);
+                searchPatient.value = '';
+            });
+
             calendar_week.appendChild(cell);
         }
     }
@@ -127,6 +142,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     terminbtn.addEventListener('click', () => {
         overlay.style.display = 'block';
         search_window.style.display = 'flex';
+        termin_time.value = '';
+        dropdown.value = 'Besprechung'
+        duration.value = 15;
+        searchPatient.value = '';
     });
 
     // Event-Listener für den Button zum Ändern des Kalendertyp
@@ -145,21 +164,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Event-Listener für den Button zum Öffnen des Modals
-    openModalButtonStatus.addEventListener('click', () => {
-        status.classList.toggle('active')
-        filter.classList.toggle('active')
-    });
-
     openModalButtonfilter.addEventListener('click', () => {
-        status.classList.toggle('active')
         filter.classList.toggle('active')
+
+        var dropdownIcon = document.getElementById("dropdownIcon");
+        
+        // Change the icon based on dropdown state
+        if (filter.classList.contains("active")) {
+            dropdownIcon.classList.remove("fa-chevron-down");
+            dropdownIcon.classList.add("fa-chevron-up");
+        } else {
+            dropdownIcon.classList.remove("fa-chevron-up");
+            dropdownIcon.classList.add("fa-chevron-down");
+        }
     });
 
     searchInput.addEventListener('input', () => {
         const query = searchInput.value.toLowerCase();
         const filteredResults = patientenNamen.filter(item => item.toLowerCase().includes(query)).sort();
 
-        displayResults(filteredResults.slice(0, 20), query, searchResults);
+        displayResults(filteredResults.slice(0, 20), query, searchResults, true);
     });
 
     function displayResults(results, query, elem, openWindow) {
@@ -174,6 +198,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     resultDiv.addEventListener('click', () => {
                         searchPatient.value = result
                         elem.classList.remove('active');
+                    });
+                }
+                else {
+                    resultDiv.addEventListener('click', () => {
+                        window.location.href = '/patient';
                     });
                 }
                 elem.appendChild(resultDiv);
@@ -298,7 +327,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 day.setDate(startOfWeek.getDate() + index-1);
                 el.textContent = formatDate(day);
                 const todaysAppointments = checkTodayAppointments(alleTermine, day);
-                console.log("In update: ");
                 for (let i = 0; i < todaysAppointments.length; i++) {
                     const element = createAppointment(todaysAppointments[i][0]+2, todaysAppointments[i][1], index+1, todaysAppointments[i][2])
                     if(element) {
@@ -314,7 +342,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             {
                 el.textContent = formatDate(date);
                 const todaysAppointments = checkTodayAppointments(alleTermine, date);
-                console.log("In update: ");
                 for (let i = 0; i < todaysAppointments.length; i++) {
                     const element = createAppointment(todaysAppointments[i][0], todaysAppointments[i][1], 2, todaysAppointments[i][2])
                     if(element) {
@@ -354,7 +381,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return todaysAppointments.map(appointment => {
         const { type, start, end, patient } = appointment;
         const [start2, duration] = calculateDuration(start, end);
-        console.log("In Check: Start: " + start2 + " Duration: " + duration);
         return [start2, duration, type];
         // return `Typ: ${type}, Patient: ${patient}, Start: ${start}, Ende: ${end}, Dauer: ${duration}`;
         });
@@ -373,7 +399,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         let diff = endDate - startDate;
         const minutes = Math.floor(diff / 1000 / 60);
-        console.log("In calc: start: " + startRow + " Duration: " + minutes/5);
         return [startRow, minutes/5];
     }
 
@@ -421,7 +446,88 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         appointment.style.gridColumn = col;
 
+        // Erstelle die Infobox
+        var infoBox = document.createElement('div');
+        infoBox.className = 'info-box';
+        infoBox.innerHTML = `<h3>Besprechung</h3>
+                             <p>Patient: Steidle, Max</p>
+                             <p>Start: 9:00</p>
+                             <p>Dauer: 15 Minuten</p>
+                             <p>Notiz: Keine Notiz</p>
+                             <button class="edit-btn"><i class="fas fa-edit"></i></button>`;
+
+        appointment.appendChild(infoBox);
+
+        // Alle Edit-Buttons auswählen und Event-Listener hinzufügen
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+            button.addEventListener('click', editAppointment);
+        });
+
+        var hoverTimeout;
+
+        appointment.addEventListener('mouseenter', function() {
+            hoverTimeout = setTimeout(function() {
+                infoBox.style.display = 'block';
+            }, 1000); // Verzögerung in Millisekunden (hier 500ms)
+        });
+
+        appointment.addEventListener('mouseleave', function() {
+            clearTimeout(hoverTimeout);
+            infoBox.style.display = 'none';
+        });
+
         return appointment;
+    }
+
+    function editAppointment() {
+        overlay.style.display = 'block';
+        search_window.style.display = 'flex';
+        searchPatient.value = "Mustermann, Max"
+        termin_time.value = '';
+        dropdown.value = 'Besprechung'
+        duration.value = 15;
+    }
+
+    function setDate(row, col){
+        let newDate = getStartOfWeek(currentDate);
+        let startMin = 7*60;
+        let currentTime = startMin + (row * 5);
+        let hour = Math.floor(currentTime / 60);
+        let minutes = currentTime % 60;
+        newDate.setDate(newDate.getDate() + col);
+        newDate.setHours(hour);
+        hour = (hour < 10 ? '0' + hour : hour)
+        minutes = (minutes < 10? '0' + minutes : minutes);
+        let month = (newDate.getMonth()+1 < 10 ? '0' + (newDate.getMonth()+1) : newDate.getMonth()+1)
+        let day = (newDate.getDate() < 10? '0' + newDate.getDate() : newDate.getDate())
+        // console.log(newDate.getFullYear(), newDate.getMonth(), newDate.getDate());
+        return `${newDate.getFullYear()}-${month}-${day}T${hour}:${minutes}`;
+    }
+
+    function createNewAppointment(type, partient, dateTime, duration) {
+        console.log(duration)
+        let arr = dateTime.split('T');
+        console.log(arr[1], dateTime);
+        const [hour, minutes] = arr[1].split(':').map(Number);
+        console.log(hour, minutes);
+        let newMinutes = duration + minutes;
+        
+        let newHour = hour + (Math.floor(newMinutes / 60));
+        newMinutes = newMinutes % 60;
+        newHour = (newHour < 10 ? '0' + newHour : newHour)
+        newMinutes = (newMinutes < 10 ? '0' + newMinutes : newMinutes)
+        const end = `${newHour}:${newMinutes}`;
+        let app = {
+            "type": type.toLowerCase(),
+            "partient": partient,
+            "date": arr[0],
+            "start": arr[1],
+            "end": end
+        };
+        alleTermine.push(app);
+        updateCalendar(currentDate);
+        console.log(alleTermine);
     }
 
     vorsorge_checkbox.addEventListener('change', function () {
@@ -443,6 +549,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initiales Rendern des Kalenders
     renderCalendar(currentDate);
+
+    
 });
 
 async function getPatientNamesFromJSON(jsonFilePath) {
